@@ -1,3 +1,6 @@
 /target
-
+.direnvassets/
 .direnv
+assets
+
+.pre-commit-config.yaml
