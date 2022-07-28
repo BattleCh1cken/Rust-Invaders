@@ -20,15 +20,15 @@
             src = ./.;
             hooks = {
               nixpkgs-fmt.enable = true;
-              rustfmt.enable = true;
+              # rustfmt.enable = true;
             };
           };
         };
 
         defaultPackage = naersk-lib.buildPackage ./.;
-        devShell = with pkgs; mkShell rec {
+        devShell = nixpkgs.legacyPackages.${system}.mkShell rec {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
-          nativeBuildInputs = [
+          nativeBuildInputs = with pkgs; [
             pkg-config
             llvmPackages.bintools # To use lld linker
             cargo
@@ -38,7 +38,7 @@
             rust-analyzer
             clippy
           ];
-          buildInputs = [
+          buildInputs = with pkgs; [
             udev
             alsaLib
             vulkan-loader
@@ -50,7 +50,6 @@
             wayland # To use wayland feature
           ];
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
-
         };
       });
 }

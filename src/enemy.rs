@@ -9,7 +9,10 @@ impl Plugin for EnemyPlugin {
 }
 
 fn enemy_spawn_system(mut commands: Commands, game_textures: Res<GameTextures>) {
-	commands.spawn_bundle({ SpriteBundle {
-        texture: game_textures.enemy.clone(),
-        ..Default::default() } });
+	commands.spawn_bundle({
+		SpriteBundle {
+			texture: game_textures.enemy.clone(),
+			..Default::default()
+		}
+	});
 }
